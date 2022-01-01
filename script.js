@@ -23,7 +23,7 @@ function random () {
     compChoice = choices[Math.floor(Math.random()*3)]}
 
 function gameEngine() {
-    if (i === 5) { if (Number(sj) > Number(sp)){endGame('You win!') ; i = 0 ; numPlay.textContent = 0 ; numPC.textContent = 0; sj = 0 ; sp = 0;}
+    if (i === 6) { if (Number(sj) > Number(sp)){endGame('You win!') ; i = 0 ; numPlay.textContent = 0 ; numPC.textContent = 0; sj = 0 ; sp = 0;}
         else if (Number(sj) < Number(sp)) { endGame('You lose!')  ; i = 0 ; numPlay.textContent = 0 ; numPC.textContent = 0; sj = 0 ; sp = 0;}
         else {endGame('Empate!') ; i = 0 ; numPlay.textContent = 0 ; numPC.textContent = 0; sj = 0 ; sp = 0;}}
 
