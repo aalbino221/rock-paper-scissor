@@ -38,8 +38,9 @@ body {font-family: 'Inter', sans-serif;
     justify-content: center;
     align-items: center;
     flex-direction: column;}
-.rockI, .paperI, .scissorI {height: 98px;
-    width: 98px;}
+
+.rockI, .paperI, .scissorI {height: 80px;
+    width: 80px;}
 
 .three {flex-direction: column;
     gap: 20px;

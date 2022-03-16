@@ -1,70 +1,100 @@
-/*
-- pedir que usuario escolha entre "pedra", "papel" ou "tesoura" = userChoice
- se for diferente das escolhas => printe Não entendir
- else - continue
-- computador escolhe entre "pedra", "papel" ou "tesoura" = compChoice
-    Escolhe entre um array ["pedra","papel","tesoura"]
-    Função que escolha 0,1 ou 2 => Math.floor(Math.random()*3)
-- computador compara escolha de usuario com escolha do computador
-- se userChoice === compChoice => printe "Empate"
-- se Pedra && Papel => ganhador = Papel
-- se Pedra && Tesoura => ganhador = Pedra
-- se Tesoura && Papel => ganhador = Tesoura 
-if userChoice === ganhador => printe "You win"
-else printe "You lose"*/
-
-
-function input() {
-    let inpu = prompt("Pedra, Papel ou Tesoura?")
-    userChoice = inpu[0].toUpperCase()+(inpu.slice(1)).toLowerCase()
+let selectors = {
+    end : document.querySelector(".end"),
+    main : document.querySelector(".main"),
+    rock : document.querySelector(".rock"),
+    paper : document.querySelector(".paper"),
+    scissors : document.querySelector(".scissor"),
+    escolhaPlayer : document.querySelector(".escolhaPlayer"),
+    escolhaPC : document.querySelector(".escolhaPC"),
+    numPlay : document.querySelector(".numPlay"),
+    numPC: document.querySelector(".numPC"),
+    body: document.body,
 }
-function random () {
-    let choices = ["Pedra","Papel","Tesoura"]
-    compChoice = choices[Math.floor(Math.random()*3)]}
 
-function gameEngine() {
-    if (i === 6) { if (Number(sj) > Number(sp)){endGame('You win!') ; i = 0 ; numPlay.textContent = 0 ; numPC.textContent = 0; sj = 0 ; sp = 0;}
-        else if (Number(sj) < Number(sp)) { endGame('You lose!')  ; i = 0 ; numPlay.textContent = 0 ; numPC.textContent = 0; sj = 0 ; sp = 0;}
-        else {endGame('Empate!') ; i = 0 ; numPlay.textContent = 0 ; numPC.textContent = 0; sj = 0 ; sp = 0;}}
+let parameters = {
+    i: 0,   /* turno */
+    sj: 0,  /* score players*/
+    sp: 0,  /* score pc */ 
+    userChoice: '',
+    compChoice: '',
+}
 
-    else if (userChoice == compChoice) {escolhaPlayer.textContent = 'Você escolheu ' + userChoice + ' - Empate';
-    escolhaPC.textContent = 'PC escolheu ' + compChoice + ' - Empate';  escolhaPlayer.style.backgroundColor = ' #a9a9a9'; escolhaPC.style.backgroundColor = ' #a9a9a9'}
-    else if (userChoice == "Papel" && compChoice =="Pedra") {numPlay.textContent = ++sj; ganhador()}
-    else if (userChoice == "Pedra" && compChoice =="Tesoura") {numPlay.textContent = ++sj; ganhador()}
-    else if (userChoice =="Tesoura" && compChoice =="Papel"){numPlay.textContent = ++sj; ganhador()}
-    else {numPC.textContent = ++sp; perdedor()}}
+let functions = {
+    random: function () {
+        let choices = ["Rock","Paper","Scissors"]
+        parameters.compChoice = choices[Math.floor(Math.random()*3)]
+    },
 
-function ganhador() { escolhaPlayer.textContent = 'Você escolheu ' + userChoice + ' - Ganhou';
-    escolhaPC.textContent = 'PC escolheu ' + compChoice + ' - Perdeu'; escolhaPlayer.style.backgroundColor = 'lightgreen'; escolhaPC.style.backgroundColor = '#ed2939' }
+    gameEngine: function() { 
+        if (parameters.userChoice == parameters.compChoice) {selectors.escolhaPlayer.textContent = 'You choose ' + parameters.userChoice + ' - Draw';
+        selectors.escolhaPC.textContent = 'PC choose ' + parameters.compChoice + ' - Draw'; selectors.escolhaPlayer.style.backgroundColor = ' #a9a9a9'; selectors.escolhaPC.style.backgroundColor = ' #a9a9a9'}
+        else if (parameters.userChoice == "Paper" && parameters.compChoice =="Rock") {this.ganhador()}
+        else if (parameters.userChoice == "Rock" && parameters.compChoice =="Scissors") {this.ganhador()}
+        else if (parameters.userChoice =="Scissors" && parameters.compChoice =="Paper"){this.ganhador()}
+        else { this.perdedor()};
+        setTimeout(functions.check, 1000)
 
-function perdedor() { escolhaPlayer.textContent = 'Você escolheu ' + userChoice + ' - Perdeu';
-escolhaPC.textContent = 'PC escolheu ' + compChoice + ' - Ganhou'; escolhaPlayer.style.backgroundColor =  '#ed2939' ; escolhaPC.style.backgroundColor = 'lightgreen'}
+    },
 
-function endGame(mensagi) {  main.style.display = 'none'; end.style.display = 'flex';
-    let resultado = document.querySelector('.resultado'); resultado.textContent = `${sj} - ${sp}`;
-    let message = document.querySelector('.message'); message.textContent = mensagi }
+    ganhador: function () { 
+        selectors.escolhaPlayer.textContent = 'You choose ' + parameters.userChoice + ' - Won';
+        selectors.escolhaPC.textContent = 'PC choose ' + parameters.compChoice + ' - Lost'; 
+        selectors.escolhaPlayer.style.backgroundColor = 'lightgreen'; selectors.escolhaPC.style.backgroundColor = '#ed2939' ;
+        selectors.numPlay.textContent = ++parameters.sj;
+    },
 
+    perdedor: function () { 
+        selectors.escolhaPlayer.textContent = 'You choose ' + parameters.userChoice + ' - Lost';
+        selectors.escolhaPC.textContent = 'PC choose ' + parameters.compChoice + ' - Won'; 
+        selectors.escolhaPlayer.style.backgroundColor =  '#ed2939' ; selectors.escolhaPC.style.backgroundColor = 'lightgreen';
+        selectors.numPC.textContent = ++parameters.sp;
+    },
 
-let end = document.querySelector(".end")
-let main = document.querySelector(".main")
-let rock = document.querySelector(".rock")
-let paper = document.querySelector(".paper")
-let scissor = document.querySelector(".scissor")
-let escolhaPlayer = document.querySelector(".escolhaPlayer")
-let escolhaPC = document.querySelector(".escolhaPC")
-let i = 0
-let numPlay = document.querySelector(".numPlay")
-let numPC = document.querySelector(".numPC")
-let sj = Number(numPlay.textContent); /* score do jogador */
-let sp = Number(numPC.textContent); /* score do pc */
-let userChoice = ''
-let body = document.body
+    endGame: function (msg) {  
+        selectors.main.style.display = 'none'; selectors.end.style.display = 'flex';
+        let resultado = document.querySelector('.resultado');
+        let message = document.querySelector('.message'); 
+        message.textContent = msg;  
+        resultado.textContent = `${parameters.sj} - ${parameters.sp}`; 
+    },
 
-rock.addEventListener('click', (e) => {userChoice = "Pedra";random() ; i++ ; gameEngine()})
+    reset: function () {parameters.sj = 0 ; parameters.sp = 0; parameters.i = 0 ;
+        selectors.numPlay.textContent = 0 ; 
+        selectors.numPC.textContent = 0;
+    },
 
-paper.addEventListener('click', (e) => {userChoice = "Papel" ;random() ; i++ ; gameEngine()})
+    check: function() {
+        let sj = parameters.sj;
+        let sp = parameters.sp;
+        if (parameters.i === 5) {
+            if (Number(sj) > Number(sp)) {functions.endGame('You win!') ; functions.reset() }
+            else if (Number(sj) < Number(sp)) {functions.endGame('You lose!'); functions.reset() }
+            else {functions.endGame('Draw!') ; functions.reset() }
+        }
+    },
 
-scissor.addEventListener('click', (e) => {userChoice = "Tesoura" ; random() ; i++ ; gameEngine()})
+}
 
-end.addEventListener('click', (e) => {main.style.display = 'flex'; end.style.display = 'none'; escolhaPlayer.textContent = 'Você escolheu...'; escolhaPC.textContent = 'PC escolheu...'
- escolhaPlayer.style.backgroundColor = '#e5e5dc' ;  escolhaPC.style.backgroundColor = '#e5e5dc'})
+let listeners = function() {
+    let rock = selectors.rock.addEventListener('click', (e) => {
+        parameters.userChoice = "Rock";functions.random() ; parameters.i++ ; functions.gameEngine()
+    });
+
+    let paper = selectors.paper.addEventListener('click', (e) => {
+        parameters.userChoice = "Paper" ;functions.random() ; 
+        parameters.i++ ; functions.gameEngine()
+    });
+
+    let scissor = selectors.scissors.addEventListener('click', (e) => {
+        parameters.userChoice = "Scissors" ; functions.random() ; 
+        parameters.i++ ; functions.gameEngine()
+    });
+
+    let end = selectors.end.addEventListener('click', (e) => {selectors.main.style.display = 'flex'; selectors.end.style.display = 'none';
+        selectors.escolhaPlayer.textContent = 'You choose...'; 
+        selectors.escolhaPC.textContent = 'PC choose...'
+        selectors.escolhaPlayer.style.backgroundColor = '#e5e5dc' ;  
+        selectors.escolhaPC.style.backgroundColor = '#e5e5dc'
+    });
+
+}()
