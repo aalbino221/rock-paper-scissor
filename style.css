@@ -100,3 +100,5 @@ button { border-radius: 10px;
 .message {margin: 0}
 
 .again { margin: 0;}
+
+.rock:hover, .paper:hover, .scissor:hover {transform: scale(1.2);}
